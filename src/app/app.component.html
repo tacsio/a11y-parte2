@@ -1,10 +1,7 @@
 <h1>Accessible Modal Component</h1>
 
 <p>Welcome to the acessible modal testing page!</p>
-<button
-  class="button button-primary"
-  type="button"
-  (click)="show()">
+<button class="button button-primary" type="button" (click)="show()">
   Show modal
 </button>
 
@@ -26,10 +23,18 @@
 
   <div class="button-group">
     <button class="button button-primary" type="button">Submit</button>
-    <button
-      (click)="close()"
-      class="button button-secondary"
-      type="button">Cancel
+    <button (click)="close()" class="button button-secondary" type="button">
+      Cancel
     </button>
   </div>
 </ng-template>
+
+<!-- <ng-template #template1>
+  <p>I am temaplte 1</p>
+</ng-template>
+
+<ng-template #template2>
+  <p>I am temaplte 2</p>
+</ng-template>
+
+<ng-content *ngTemplateOutlet="selected"></ng-content> -->
