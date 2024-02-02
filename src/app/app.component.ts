@@ -1,20 +1,24 @@
 import {
   AfterViewInit,
   Component,
+  OnInit,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { ModalService } from './shared/components/modal/services/modal.service';
 import { ModalConfig } from './shared/components/modal/interfaces/modal-config';
 import { ModalRef } from './shared/components/modal/models/modal-ref';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { fade } from './shared/animations/fade';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: [fade]
 })
 // export class AppComponent implements AfterViewInit {
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('modal')
   modalTemplateRef: TemplateRef<any>;
 
@@ -31,12 +35,28 @@ export class AppComponent {
   // }
 
   title = 'a11y-p2';
-  firstName = 'Tarcisio';
-  modalRef: ModalRef;
 
+  firstName = 'Tarcisio';
+  surname = '';
+  age = '';
   info = false;
 
-  constructor(private modalService: ModalService) {}
+  modalRef: ModalRef;
+  form: FormGroup;
+
+  constructor(
+    private modalService: ModalService,
+    private formBuilder: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      firstName: ['Tarcisio', Validators.required],
+      surname: ['', Validators.required],
+      age: ['', Validators.required],
+      info: [false],
+    });
+  }
 
   show(): void {
     // this.selected = this.template2;
@@ -47,6 +67,14 @@ export class AppComponent {
     };
 
     this.modalRef = this.modalService.open(config);
+  }
+
+  submit(): void {
+
+    if(this.form.invalid) return;
+
+    console.log(this.form.value);
+    this.close();
   }
 
   close(): void {
